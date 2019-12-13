@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,11 +10,11 @@ import java.util.Properties;
 /**
  * @author MrBird
  */
-// @RestController
-@Controller
+@RestController
+//@Controller
 public class TestController {
 
-    @GetMapping(value = "test", consumes = "text/properties")
+    @GetMapping(value = "test"/*, consumes = "text/properties"*/)
     @ResponseBody
     public Properties getUser(@RequestBody Properties properties) {
         return properties;

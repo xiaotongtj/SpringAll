@@ -1,14 +1,13 @@
 package com.springboot.config;
 
-import java.util.LinkedHashMap;
-
+import com.springboot.shiro.ShiroRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.springboot.shiro.ShiroRealm;
+import java.util.LinkedHashMap;
 
 @Configuration
 public class ShiroConfig {
@@ -31,7 +30,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/logout", "logout");
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/**", "authc");
-		
+
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		
 		return shiroFilterFactoryBean;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author MrBird
  */
 @Component
-public class HelloApplicationRunner implements ApplicationRunner {
+public class  HelloApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         System.out.println("HelloApplicationRunner: hello spring boot");

@@ -1,79 +1,80 @@
 package com.example.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 import java.util.Date;
 
-import com.example.config.UserDeserializer;
-import com.example.config.UserSerializer;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 //@JsonIgnoreProperties({ "password", "age" })
+//[{"user_name":"mrbird","age":26,"password":"123456","birthday":"2019-12-12 22:37:02"}]
+//[{"userName":"mrbird","age":26,"password":"123456","birthday":"2019-12-12 22:39:07"}]
 //@JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
 //@JsonSerialize(using = UserSerializer.class)
 //@JsonDeserialize (using = UserDeserializer.class)
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 6222176558369919436L;
+    private static final long serialVersionUID = 6222176558369919436L;
 
-	public interface UserNameView {
-	};
+    public interface UserNameView {
+    }
 
-	public interface AllUserFieldView extends UserNameView {
-	};
+    ;
 
-	@JsonView(UserNameView.class)
-	private String userName;
-	
-	@JsonView(AllUserFieldView.class)
-	private int age;
+    public interface AllUserFieldView extends UserNameView {
+    }
 
-	// @JsonIgnore
-	@JsonView(AllUserFieldView.class)
-	private String password;
+    ;
 
-	// @JsonProperty("bth")
-	// @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonView(AllUserFieldView.class)
-	private Date birthday;
+    @JsonView(UserNameView.class)
+    private String userName;
 
-	public String getUserName() {
-		return userName;
-	}
+    @JsonView(AllUserFieldView.class)
+    private int age;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    @JsonIgnore
+    //@JsonView(AllUserFieldView.class) 和@JsonIgnore不能连用
+    private String password;
 
-	public int getAge() {
-		return age;
-	}
+    //[{"userName":"mrbird","age":26}]
+    //[{"userName":"mrbird","age":26,"password":"123456","bth":"2019-12-12"}]
+    @JsonProperty(value = "bth", access = JsonProperty.Access.READ_WRITE)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonView(AllUserFieldView.class)
+    private Date birthday;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    public int getAge() {
+        return age;
+    }
 
-	public Date getBirthday() {
-		return birthday;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
 }

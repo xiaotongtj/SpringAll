@@ -1,15 +1,5 @@
 package com.example.controller;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.example.pojo.User;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -17,6 +7,16 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TestJsonController {
@@ -27,13 +27,15 @@ public class TestJsonController {
 	@JsonView(User.AllUserFieldView.class)
 	@RequestMapping("getuser")
 	@ResponseBody
-	public User getUser() {
+	public List<User> getUser() {
 		User user = new User();
 		user.setUserName("mrbird");
 		user.setAge(26);
 		user.setPassword("123456");
 		user.setBirthday(new Date());
-		return user;
+        List<User> list = new ArrayList<>();
+        list.add(user);
+		return  list;
 	}
 
 	@RequestMapping("serialization")

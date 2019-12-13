@@ -1,15 +1,16 @@
 package com.springboot.bean;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
+@ConfigurationProperties(prefix = "mrbird.blog")
 public class BlogProperties {
 	
-	@Value("${mrbird.blog.name}")
+	//@Value("${mrbird.blog.name}")
 	private String name;
 	
-	@Value("${mrbird.blog.title}")
+	//@Value("${mrbird.blog.title}")
 	private String title;
 
 	public String getName() {
